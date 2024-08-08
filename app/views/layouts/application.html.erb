@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My_first_blog_experience</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <nav class="navbar bg-dark border-bottom border-body" style="background-color: #b3cafb;" background-attachment: scroll;>
+    <div class="container">
+        <div class="navbar-header" >
+          <a class="navbar-brand" href="http://localhost:3000/">Elmas blog</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          <% if user_signed_in? %>
+          <li>
+            <%= link_to "Profile", edit_profile %>
+          </li>
+          <li>
+            <%= link_to "Sign out", destroy_user_session_path, method: :delete, data: { turbo_method: :delete } %>
+          </li>
+          <% else %>
+          <li>
+            <%= link_to "Sign up", new_user_registration_path %>
+          </li>
+          <li>
+            <%= link_to "Sign in", new_user_session_path %>
+          </li>
+          <% end %>
+        </ul>
+        <ul class="nav navbar-nav navbar-left">
+          <li>
+            <%= link_to "About me", profile_path %>
+          </li>
+          <li>
+            <%= link_to "My posts", posts_path %>
+          </li>
+        </ul>
+    </div>
+  </nav>
+
+<div class="container">
+  <%= yield %>
+</div>
+
+</html>
