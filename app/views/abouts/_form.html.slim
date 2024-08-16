@@ -1,0 +1,18 @@
+= form_with(model: about) do |form|
+  - if about.errors.any?
+    div style="color: red"
+      h2 = "#{pluralize(about.errors.count, "error")} prohibited this about from being saved:"
+      ul
+        - about.errors.each do |error|
+          li = error.full_message
+
+  div
+    = form.label :title, style: "display: block"
+    = form.text_field :title
+
+  div
+    = form.label :content, style: "display: block"
+    = form.text_area :content
+
+  div
+    = form.submit

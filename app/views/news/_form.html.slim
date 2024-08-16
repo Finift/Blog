@@ -1,0 +1,22 @@
+= form_with(model: news) do |form|
+  - if news.errors.any?
+    div style="color: red"
+      h2 = "#{pluralize(news.errors.count, "error")} prohibited this news from being saved:"
+      ul
+        - news.errors.each do |error|
+          li = error.full_message
+
+  div
+    = form.label :title, style: "display: block"
+    = form.text_field :title
+
+  div
+    = form.label :content, style: "display: block"
+    = form.text_area :content
+
+  div
+    = form.label :user_id, style: "display: block"
+    = form.number_field :user_id
+
+  div
+    = form.submit

@@ -1,0 +1,14 @@
+p style="color: green" = notice
+
+h2 photos
+
+- @photos.each do |photo|
+  h1 = photo.title
+  p = photo.content
+  div
+    b Author:
+    = photo.user.email
+
+p
+
+    = link_to "New photo", new_photo_path, class: 'btn btn-default'
