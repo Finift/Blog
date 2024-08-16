@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+  resources :abouts
+  resources :news
   resources :posts
-  resources :profile  
+  resources :profile
   devise_for :users, sign_out_via: [:delete, :get]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

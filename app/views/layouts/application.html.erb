@@ -9,43 +9,86 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <nav class="navbar bg-dark border-bottom border-body" style="background-color: #b3cafb;" background-attachment: scroll;>
+  <meta charset="UTF-8">
+  <nav class="navbar bg-dark border-bottom border-body" style="background-color: #FFFFE0;" background-attachment: scroll;>
     <div class="container">
         <div class="navbar-header" >
-          <a class="navbar-brand" href="http://localhost:3000/">Elmas blog</a>
+          <a class="navbar-brand" href="http://localhost:3000">Marusya's blog</a>
+          <style>
+            .navbar-brand {
+                font-family: 'Poppins', sans-serif;
+                font-size: 36px;
+                font-weight: bold;
+                color: #BA55D3;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+                #background-color: #FFFFE0;
+                border-radius: 5px;
+                padding: 10px 20px;
+                display: inline-block;
+                transition: all 0.3s ease;
+              }
+            body {
+                background-image: url('<%= asset_path("Marusya.jpg") %>');
+                background-size: cover;          /* Картинка растягивается, чтобы покрыть весь экран */
+                background-position: center;     /* Картинка центрируется по экрану */
+                background-repeat: no-repeat;    /* Картинка не повторяется */
+                background-attachment: fixed;    /* Фон остается на месте при прокрутке страницы */
+              }
+              body::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(255, 255, 255, 0.5); /* Полупрозрачный белый слой */
+                z-index: 1; /* Этот слой будет поверх фонового изображения */
+              }
+              .container {
+                position: relative;
+                z-index: 2; /* Контент будет поверх слоя */
+          </style>
         </div>
         <ul class="nav navbar-nav navbar-right">
           <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <button class="btn btn-outline-success" type="submit" style="background-color: #D8BFD8; color: #BA55D3;" >Search</button>
+            <% if user_signed_in? %>
+            <li>
+              <%= link_to "Sign out", destroy_user_session_path, method: :delete, data: { turbo_method: :delete } %>
+            </li>
+            <% else %>
+            <li>
+              <%= link_to "Sign up", new_user_registration_path %>
+            </li>
+            <li>
+              <%= link_to "Sign in", new_user_session_path %>
+            </li>
+            <% end %>
           </form>
-          <% if user_signed_in? %>
-          <li>
-            <%= link_to "Profile", edit_profile %>
-          </li>
-          <li>
-            <%= link_to "Sign out", destroy_user_session_path, method: :delete, data: { turbo_method: :delete } %>
-          </li>
-          <% else %>
-          <li>
-            <%= link_to "Sign up", new_user_registration_path %>
-          </li>
-          <li>
-            <%= link_to "Sign in", new_user_session_path %>
-          </li>
-          <% end %>
         </ul>
         <ul class="nav navbar-nav navbar-left">
+          <style>
+            .btn-custom {
+              background-color: #D8BFD8; /* Цвет фона кнопки */
+              border-color: #BA55D3;     /* Цвет границы кнопки */
+              color: #BA55D3;            /* Цвет текста */
+            }
+          </style>
           <li>
-            <%= link_to "About me", profile_path %>
+            <%= link_to "About me", abouts_path, :class => 'btn btn-mini btn-custom' %>
           </li>
           <li>
-            <%= link_to "My posts", posts_path %>
+            <%= link_to "My s", photos_path, :class => 'btn btn-mini btn-custom' %>
+          </li>
+          <li>
+          <%= link_to 'News', news_index_path, :class => 'btn btn-mini btn-custom' %>
           </li>
         </ul>
     </div>
   </nav>
-
 <div class="container">
   <%= yield %>
 </div>
